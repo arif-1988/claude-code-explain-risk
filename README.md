@@ -4,160 +4,176 @@
 
 # Claude Code Explain Risk
 
-**Show risk explanations on Claude Code's permission dialogs**
+**Claude Code の許可ダイアログに、操作のリスクを分かりやすく表示するツール**
 
-[🇯🇵 日本語](README.ja.md)
+[English](README.en.md)
 
 ---
 
-When using Claude Code, you often see "Allow this command?" dialogs, but it's not always clear what will happen.
+Claude Code を使っていると「このコマンドを許可しますか？」というダイアログが表示されますが、何が起きるのか分かりにくいことがあります。
 
-This tool adds risk-level labels (Low / Medium / High) and plain-language explanations to those dialogs, helping non-engineers understand what each command does before approving it. Supports both English and Japanese (auto-detected from your system locale).
+このツールを入れると、コマンドのリスクレベル（低・中・高）と、何をしようとしているかの説明が表示されるようになります。日本語・英語に対応しており、システムの言語設定に合わせて自動で切り替わります。
 
-## Example Output
-
-```
-||| Risk: High
-Attempting to recursively delete files and folders.
-Deleted files cannot be recovered.
-```
+## 表示例
 
 ```
-|| Risk: Medium
-Attempting to install npm packages.
-Malicious software may be included.
+||| リスク: 高
+ファイルやフォルダをまとめて削除しようとしています。
+削除されたファイルは復元できません。
 ```
 
-Low-risk commands (`ls`, `cat`, `git status`, etc.) pass through silently with no extra dialogs.
+```
+|| リスク: 中
+npm パッケージをインストールしようとしています。
+不正なソフトウェアが含まれる可能性があります。
+```
 
-## Installation
+低リスク（`ls`、`cat`、`git status` など）はそのまま通るので、邪魔になりません。
+
+## インストール
 
 ```bash
 npx claude-code-explain-risk
 ```
 
-Restart Claude Code after installation.
+インストール後、Claude Code を再起動すると有効になります。
 
-## Uninstall
+## アンインストール
 
 ```bash
 npx claude-code-explain-risk --uninstall
 ```
 
-## Risk Levels
+## リスクレベル
 
-| Level | Display | Behavior |
+| レベル | 表示 | 動作 |
 |---|---|---|
-| Low | None | Passes through (Claude Code default behavior) |
-| Medium | Yellow explanation | Shows description and risk, then asks for confirmation |
-| High | Red explanation | Shows description and risk, then asks for confirmation |
+| 低 | 表示なし | そのまま通ります（Claude Code のデフォルト動作） |
+| 中 | 黄色で説明表示 | 操作内容とリスクを説明してから確認 |
+| 高 | 赤色で説明表示 | 操作内容とリスクを説明してから確認 |
 
-## Supported Commands (150+)
+## 対応コマンド（150+）
 
-### High Risk (Red)
+### 高リスク（赤）
 
-| Category | Examples |
+| カテゴリ | コマンド例 |
 |---|---|
-| File deletion | `rm -rf`, `find -delete`, `truncate` |
-| Git irreversible | `git push`, `git reset --hard`, `git clean`, `git stash clear` |
-| Admin privileges | `sudo`, `systemctl`, `launchctl` |
-| Remote connections | `ssh`, `scp`, `rsync` |
-| External scripts | `curl \| bash`, `wget \| sh` |
-| Permission changes | `chmod`, `chown` |
-| Process termination | `kill`, `killall` |
+| ファイル削除 | `rm -rf`、`find -delete`、`truncate` |
+| Git 不可逆操作 | `git push`、`git reset --hard`、`git clean`、`git stash clear` |
+| 管理者権限 | `sudo`、`systemctl`、`launchctl` |
+| リモート接続 | `ssh`、`scp`、`rsync` |
+| 外部スクリプト | `curl \| bash`、`wget \| sh` |
+| 権限変更 | `chmod`、`chown` |
+| プロセス終了 | `kill`、`killall` |
 
-### Medium Risk (Yellow)
+### 中リスク（黄）
 
-| Category | Examples |
+| カテゴリ | コマンド例 |
 |---|---|
-| Package managers | `npm install`, `pip install`, `brew install`, `yarn add` |
-| Git operations | `git add`, `git commit`, `git merge`, `git pull` |
-| File operations | `mkdir`, `cp`, `mv`, `touch` |
-| Program execution | `node`, `python3`, `ruby`, `bun` |
-| Testing | `jest`, `pytest`, `playwright` |
-| Build tools | `make`, `tsc`, `webpack` |
-| Deployment | `firebase deploy`, `vercel`, `gcloud` |
-| Databases | `psql`, `mysql`, `sqlite3` |
+| パッケージ管理 | `npm install`、`pip install`、`brew install`、`yarn add` |
+| Git 操作 | `git add`、`git commit`、`git merge`、`git pull` |
+| ファイル操作 | `mkdir`、`cp`、`mv`、`touch` |
+| プログラム実行 | `node`、`python3`、`ruby`、`bun` |
+| テスト | `jest`、`pytest`、`playwright` |
+| ビルド | `make`、`tsc`、`webpack` |
+| デプロイ | `firebase deploy`、`vercel`、`gcloud` |
+| データベース | `psql`、`mysql`、`sqlite3` |
 
-### Low Risk (No display)
+### 低リスク（表示なし）
 
-| Category | Examples |
+| カテゴリ | コマンド例 |
 |---|---|
-| Basic commands | `ls`, `pwd`, `cd`, `echo`, `cat` |
-| Search | `find`, `grep`, `rg`, `diff` |
-| Text processing | `jq`, `sort`, `cut` |
-| Git read-only | `git status`, `git log`, `git diff` |
-| Version/help | `--version`, `--help` |
+| 基本コマンド | `ls`、`pwd`、`cd`、`echo`、`cat` |
+| 検索 | `find`、`grep`、`rg`、`diff` |
+| テキスト処理 | `jq`、`sort`、`cut` |
+| Git 読み取り | `git status`、`git log`、`git diff` |
+| バージョン確認 | `--version`、`--help` |
 
-### Unsupported Tools
+### 対象外のツール
 
-The following tools cannot show risk explanations due to Claude Code limitations. Claude Code's built-in permission dialog is shown instead.
+以下のツールは Claude Code の仕様上、フックの説明テキストを表示できないため対象外です。Claude Code 独自の許可ダイアログがそのまま表示されます。
 
-| Tool | Description |
+| ツール | 説明 |
 |---|---|
-| Edit / Write | File editing/creation. Claude Code shows the diff in its own UI |
-| WebFetch / WebSearch | Web access. The target URL is shown in Claude Code's own UI |
-| MCP tools | External service integrations. Shown in Claude Code's own UI |
-| Read / Glob / Grep | File reading/searching. Auto-approved as read-only |
+| Edit / Write | ファイルの編集・作成。Claude Code が変更内容を専用UIで表示 |
+| WebFetch / WebSearch | Web へのアクセス。アクセス先 URL が専用UIで表示 |
+| MCP ツール | 外部サービスとの連携。専用UIで表示 |
+| Read / Glob / Grep | ファイルの読み取り・検索。読み取り専用のため自動許可 |
 
-> Once Claude Code adds support ([#17356](https://github.com/anthropics/claude-code/issues/17356)), risk explanations will automatically become available for these tools too.
+> Claude Code 側で対応が進めば（[#17356](https://github.com/anthropics/claude-code/issues/17356)）、将来的にこれらのツールでもリスク説明が表示されるようになる見込みです。
 
-## Settings Integration
+## 設定との連携
 
-### Allow List
+### allow リスト
 
-Commands already allowed in Claude Code's `settings.json` are respected. The hook won't interfere with your existing permissions.
+Claude Code の `settings.json` で許可済みのコマンドには介入しません。フックを入れる前と同じ動作を維持します。
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(npm test:*)"
+    ]
+  }
+}
+```
 
 ### Permission Mode
 
-| Mode | Hook Behavior |
+| モード | フックの動作 |
 |---|---|
-| `default` | Allow list match -> auto-approve / Otherwise -> risk explanation + confirm |
-| `acceptEdits` | Same as default |
-| `dontAsk` | Hook does not interfere (all auto-approved) |
-| `bypassPermissions` | Hook does not interfere (all auto-approved) |
+| `default` | allow リストにマッチ → 自動許可 / それ以外 → リスク説明 + 確認 |
+| `acceptEdits` | 同上 |
+| `dontAsk` | フック介入なし（全て自動承認） |
+| `bypassPermissions` | フック介入なし（全て自動承認） |
 
-## Language
+## 言語
 
-The display language is detected automatically:
+表示言語は自動で判定されます：
 
-1. `LANG` environment variable (e.g. `ja_JP.UTF-8` → Japanese)
-2. **macOS**: Falls back to system language via `AppleLocale` if `LANG` doesn't match
+1. `LANG` 環境変数（例: `ja_JP.UTF-8` → 日本語）
+2. **macOS**: `LANG` が日本語でない場合、システム言語設定（`AppleLocale`）をフォールバックとして使用
 
-| Condition | Display Language |
+| 条件 | 表示言語 |
 |---|---|
-| `LANG` starts with `ja` | Japanese |
-| macOS system language is Japanese | Japanese |
-| Otherwise | English |
+| `LANG` が `ja` で始まる | 日本語 |
+| macOS のシステム言語が日本語 | 日本語 |
+| それ以外 | 英語 |
 
-No configuration needed.
+特別な設定は不要です。
 
-## Requirements
+## 動作環境
 
-- **Node.js** — Bundled with Claude Code, no extra installation needed
-- **OS** — macOS, Linux
-- **Dependencies** — None (uses only Node.js built-in modules)
+- **Node.js** — Claude Code に同梱されているので追加インストール不要
+- **対応OS** — macOS、Linux
+- **依存パッケージ** — なし（Node.js 標準ライブラリのみ使用）
 
-## How It Works
+## 仕組み
 
-Uses Claude Code's [PreToolUse hooks](https://docs.anthropic.com/en/docs/claude-code/hooks). The hook is called before any Bash command executes, classifies the risk, and shows an explanation.
+Claude Code の [PreToolUse フック](https://docs.anthropic.com/en/docs/claude-code/hooks) を使っています。Bash コマンドが実行される前にフックが呼ばれ、コマンドのリスクを判定して説明を表示します。
 
 ```
-Claude Code is about to execute a command
+Claude Code がコマンドを実行しようとする
   ↓
-explain-risk.js is called
+explain-risk.js が呼ばれる
   ↓
-Command risk is classified (Low / Medium / High)
+コマンドのリスクを判定（低/中/高）
   ↓
-Low risk → passes through silently
-Medium/High risk → shows explanation and asks for confirmation
+低リスク → そのまま通す
+中・高リスク → 説明を表示して確認
 ```
 
 
-## Contributing
+## 貢献
 
-Issues and PRs are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+Issue や PR を歓迎しています！詳しくは [CONTRIBUTING.md](CONTRIBUTING.md) をご覧ください。
 
-## License
+- 新しいコマンドの追加リクエスト
+- 説明テキストの改善
+- バグ報告
+- ドキュメントの改善
+
+## ライセンス
 
 [MIT](LICENSE)
