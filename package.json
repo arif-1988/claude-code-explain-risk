@@ -25,5 +25,8 @@
   "homepage": "https://github.com/wataame/claude-code-explain-risk",
   "bugs": {
     "url": "https://github.com/wataame/claude-code-explain-risk/issues"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }
