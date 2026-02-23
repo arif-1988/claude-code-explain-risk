@@ -16,17 +16,8 @@ This tool adds risk-level labels (Low / Medium / High) and plain-language explan
 
 ## Example Output
 
-```
-||| Risk: High
-Attempting to recursively delete files and folders.
-Deleted files cannot be recovered.
-```
-
-```
-|| Risk: Medium
-Attempting to install npm packages.
-Malicious software may be included.
-```
+<img src="assets/screenshot-medium-en.png" alt="Medium risk example" width="600">
+<img src="assets/screenshot-high-en.png" alt="High risk example" width="600">
 
 Low-risk commands (`ls`, `cat`, `git status`, etc.) pass through silently with no extra dialogs.
 
